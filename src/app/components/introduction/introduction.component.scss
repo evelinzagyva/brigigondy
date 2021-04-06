@@ -1,0 +1,28 @@
+@use "../../mixins/mixin" as m;
+
+.intro {
+    @include m.position-with-flex();
+    margin: 5rem 0;
+
+    &__content {
+        background-color: rgba(153, 131, 131, 0.2);
+        width: 80%;
+        @include m.position-with-flex();
+    }
+    
+    &__text-box {
+        width: 50%;
+    }
+
+    &__title {
+        font-size: 30px;
+        margin-bottom: 2rem;
+    }
+
+    &__img {
+        object-fit: cover;
+        width: 30vw;
+        height: 30vw;
+        padding: 3rem;
+        }
+}

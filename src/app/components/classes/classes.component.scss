@@ -1,0 +1,36 @@
+@use "../../mixins/mixin" as m;
+
+.classes {
+    text-align: center;
+
+    &__title {
+        font-size: 26px;
+        margin-bottom: 3rem;
+    }
+    
+    &__card-box {
+        @include m.position-with-flex(row, space-evenly)
+    }
+}
+
+mat-card {
+    width: 20vw;
+    height: 25vw;
+
+    img {
+        height: 20vw;
+        object-fit: cover;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+        &:hover {
+            font-size: 17px;
+        }
+    }
+} 
+
+mat-icon {
+    transform: translate(0, 7px);
+}

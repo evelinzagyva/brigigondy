@@ -8,13 +8,17 @@ import { HeroSectionComponent } from './components/hero-section/hero-section.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { IntroductionComponent } from './components/introduction/introduction.component';
+import { ClassesComponent } from './components/classes/classes.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     HeroSectionComponent,
-    IntroductionComponent
+    IntroductionComponent,
+    ClassesComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
