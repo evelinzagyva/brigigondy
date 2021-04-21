@@ -11,6 +11,7 @@ import { IntroductionComponent } from './components/introduction/introduction.co
 import { ClassesComponent } from './components/classes/classes.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { InstaFeedComponent } from './components/insta-feed/insta-feed.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeroSectionComponent,
     IntroductionComponent,
     ClassesComponent,
-    FooterComponent
+    FooterComponent,
+    InstaFeedComponent
   ],
   imports: [
     BrowserModule,
