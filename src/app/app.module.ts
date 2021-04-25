@@ -12,6 +12,9 @@ import { ClassesComponent } from './components/classes/classes.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InstaFeedComponent } from './components/insta-feed/insta-feed.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -21,14 +24,19 @@ import { InstaFeedComponent } from './components/insta-feed/insta-feed.component
     IntroductionComponent,
     ClassesComponent,
     FooterComponent,
-    InstaFeedComponent
+    InstaFeedComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
