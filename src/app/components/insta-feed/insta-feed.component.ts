@@ -8,9 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InstaFeedComponent implements OnInit {
 
-  accessToken:string;
-  
-
   constructor(private http:HttpClient) {
     
    }
