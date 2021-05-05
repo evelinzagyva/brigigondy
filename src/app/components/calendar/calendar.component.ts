@@ -60,6 +60,8 @@ export class CalendarComponent implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
+  selectedHourDate: Date;
+
   view: CalendarView = CalendarView.Week;
 
   CalendarView = CalendarView;
@@ -145,9 +147,11 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  hourSegmentClicked() {
-    console.log('clicked')
+  hourSegmentClicked(date: Date) {
+    this.selectedHourDate = date;
+    this.addEvent(this.selectedHourDate)
   }
+  
 
   eventTimesChanged({
     event,
@@ -172,13 +176,14 @@ export class CalendarComponent implements OnInit {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(): void {
+  addEvent(startDate): void {
     this.events = [
       ...this.events,
       {
         title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
+        start: startDate,
+        //foly köv
+        end: startDate.setHours(startDate.getHours() + 1),
         color: colors.red,
         draggable: true,
         resizable: {

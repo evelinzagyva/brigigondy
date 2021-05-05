@@ -42,7 +42,7 @@
       [refresh]="refresh"
       (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)"
-      (mwlClick)="hourSegmentClicked()"
+      (hourSegmentClicked)="hourSegmentClicked($event.date)"
       >
     </mwl-calendar-week-view>
   </div>
@@ -51,7 +51,7 @@
   
   <br /><br /><br />
   
-  <h3>
+  <!-- <h3>
     Edit events
     <button class="btn btn-primary float-right" (click)="addEvent()">
       Add new
@@ -70,7 +70,7 @@
           <th>Ends at</th>
           <th>Remove</th>
         </tr>
-      </thead>
+      </thead> -->
   
       <tbody>
         <tr *ngFor="let event of events">
@@ -133,7 +133,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
+ <!--   </table>
   </div>
   
   <ng-template #modalContent let-close="close">
@@ -157,6 +157,6 @@
       <button type="button" class="btn btn-outline-secondary" (click)="close()">
         OK
       </button>
-    </div>
-  </ng-template>
+    </div> 
+  </ng-template> -->
 </section>
