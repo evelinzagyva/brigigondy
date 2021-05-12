@@ -1,0 +1,20 @@
+   <form [formGroup]="eventForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Megnevezés</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+        <div class="form-row">
+            <p>Kezdés</p>
+            <mat-form-field appearance="outline">
+                <mat-label>Óra</mat-label>
+                <input matInput type="time" formControlName="startingTime">
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <p>Befejezés</p>
+            <mat-form-field appearance="outline">
+                <mat-label>Óra</mat-label>
+                <input matInput type="time" formControlName="endingTime">
+            </mat-form-field>
+        </div>
+    </form>

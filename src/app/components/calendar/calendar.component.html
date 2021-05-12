@@ -133,30 +133,24 @@
           </td>
         </tr>
       </tbody>
- <!--   </table>
-  </div>
+      
+ <!--   </table> 
+  </div> -->
   
   <ng-template #modalContent let-close="close">
     <div class="modal-header">
-      <h5 class="modal-title">Event action occurred</h5>
+      <h5 class="modal-title">Add meg az esemény paramétereit</h5>
       <button type="button" class="close" (click)="close()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <div>
-        Action:
-        <pre>{{ modalData?.action }}</pre>
-      </div>
-      <div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
-      </div>
+      <app-event-form [startingDate]="selectedHourDate"></app-event-form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary" (click)="close()">
         OK
       </button>
     </div> 
-  </ng-template> -->
+  </ng-template> 
 </section>

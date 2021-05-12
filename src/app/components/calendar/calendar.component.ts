@@ -79,6 +79,8 @@ export class CalendarComponent implements OnInit {
 
   dayEndHour: number = 19;
 
+  ONE_HOUR:number = 60*60*1000;
+
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -149,7 +151,9 @@ export class CalendarComponent implements OnInit {
 
   hourSegmentClicked(date: Date) {
     this.selectedHourDate = date;
-    this.addEvent(this.selectedHourDate)
+    this.modal.open(this.modalContent, { size: 'lg' });
+    //ezt majd a modal gombja hívja meg 
+    //this.addEvent(this.selectedHourDate)
   }
   
 
@@ -177,13 +181,14 @@ export class CalendarComponent implements OnInit {
   }
 
   addEvent(startDate): void {
+    let end = new Date(startDate.getTime()+ (this.ONE_HOUR))
     this.events = [
       ...this.events,
       {
         title: 'New event',
         start: startDate,
         //foly köv
-        end: startDate.setHours(startDate.getHours() + 1),
+        end,
         color: colors.red,
         draggable: true,
         resizable: {

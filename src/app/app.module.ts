@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,6 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { InstaFeedComponent } from './components/insta-feed/insta-feed.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { EventFormComponent } from './components/event-form/event-form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     ClassesComponent,
     FooterComponent,
     InstaFeedComponent,
-    CalendarComponent
+    CalendarComponent,
+    EventFormComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     CommonModule,
     FormsModule,
     NgbModule,
-    NgbModalModule
+    NgbModalModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
