@@ -27,6 +27,7 @@ export class EventFormComponent implements OnInit {
       title : new FormControl('', [Validators.required]),
       startingTime : new FormControl(this.startingHour+ ":" + this.startingMinute),
       endingTime : new FormControl('', [Validators.required]),
+      location : new FormControl('', [Validators.required])
     })
 
   }
