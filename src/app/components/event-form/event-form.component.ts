@@ -20,7 +20,7 @@ export class EventFormComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.startingHour = this.startingDate.getHours();
+    this.startingHour = this.addZero(this.startingDate.getHours());
     this.startingMinute = this.addZero(this.startingDate.getMinutes()); 
     
     this.eventForm = new FormGroup({
