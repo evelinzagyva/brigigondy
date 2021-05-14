@@ -24,5 +24,15 @@
                 <input matInput formControlName="location">
             </mat-form-field>
         </mat-grid-tile>
+        <mat-grid-tile rowspan="1" colspan="1">
+            <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">
+                Vissza
+           </button>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="1" colspan="1">
+            <button [disabled]="eventForm.invalid" type="button" class="btn btn-outline-secondary" (click)="sendEventToCalendar()">
+                Létrehoz
+           </button>
+        </mat-grid-tile>
        </mat-grid-list>
     </form>

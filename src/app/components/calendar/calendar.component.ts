@@ -5,7 +5,8 @@ import {
   ViewChild,
   TemplateRef, 
   Output,
-  EventEmitter} from '@angular/core';
+  EventEmitter,
+  OnDestroy} from '@angular/core';
 
 import { 
   CalendarEvent, 
@@ -31,6 +32,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { registerLocaleData } from '@angular/common';
 import localeHu from '@angular/common/locales/hu';
+import { EventService } from 'src/app/services/event.service';
 
 
 registerLocaleData(localeHu);
@@ -56,7 +58,7 @@ const colors: any = {
   styleUrls: ['./calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
@@ -144,9 +146,24 @@ export class CalendarComponent implements OnInit {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) { }
+  constructor(private modal: NgbModal, private service : EventService) {
 
+  }
+  
   ngOnInit(): void {
+    
+    this.service.event.subscribe(
+      (data) => {
+        this.addEvent(data);
+        this.modal.dismissAll()
+      },
+      (err) => console.error(err)
+      )
+      
+  }
+
+  ngOnDestroy() {
+    this.service.event.unsubscribe()
   }
 
   hourSegmentClicked(date: Date) {
@@ -180,22 +197,11 @@ export class CalendarComponent implements OnInit {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(startDate): void {
-    let end = new Date(startDate.getTime()+ (this.ONE_HOUR))
+  addEvent(newEvent:CalendarEvent): void {
     this.events = [
       ...this.events,
-      {
-        title: 'New event',
-        start: startDate,
-        //foly köv
-        end,
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
+      newEvent
+      ,
     ];
   }
 
