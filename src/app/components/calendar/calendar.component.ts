@@ -1,19 +1,20 @@
-import { 
-  Component, 
-  OnInit, 
+import {
+  Component,
+  OnInit,
   ChangeDetectionStrategy,
   ViewChild,
-  TemplateRef, 
+  TemplateRef,
   Output,
   EventEmitter,
-  OnDestroy} from '@angular/core';
+  OnDestroy
+} from '@angular/core';
 
-import { 
-  CalendarEvent, 
+import {
+  CalendarEvent,
   CalendarView,
   CalendarEventAction,
   CalendarEventTimesChangedEvent
- } from 'angular-calendar';
+} from 'angular-calendar';
 
 import {
   startOfDay,
@@ -33,6 +34,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { registerLocaleData } from '@angular/common';
 import localeHu from '@angular/common/locales/hu';
 import { EventService } from 'src/app/services/event.service';
+import { ExtendedCalendarEvent } from 'src/app/model/event/event.module';
 
 
 registerLocaleData(localeHu);
@@ -77,11 +79,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   locale: string = 'hu';
 
-  dayStartHour: number  = 7;
+  dayStartHour: number = 7;
 
   dayEndHour: number = 19;
 
-  ONE_HOUR:number = 60*60*1000;
+  ONE_HOUR: number = 60 * 60 * 1000;
 
   actions: CalendarEventAction[] = [
     {
@@ -103,63 +105,31 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    // {
-    //   start: subDays(startOfDay(new Date()), 1),
-    //   end: addDays(new Date(), 1),
-    //   title: 'A 3 day event',
-    //   color: colors.red,
-    //   actions: this.actions,
-    //   allDay: true,
-    //   resizable: {
-    //     beforeStart: true,
-    //     afterEnd: true,
-    //   },
-    //   draggable: true,
-    // },
-    // {
-    //   start: startOfDay(new Date()),
-    //   title: 'An event with no end date',
-    //   color: colors.yellow,
-    //   actions: this.actions,
-    // },
-    // {
-    //   start: subDays(endOfMonth(new Date()), 3),
-    //   end: addDays(endOfMonth(new Date()), 3),
-    //   title: 'A long event that spans 2 months',
-    //   color: colors.blue,
-    //   allDay: true,
-    // },
-    // {
-    //   start: addHours(startOfDay(new Date()), 2),
-    //   end: addHours(new Date(), 2),
-    //   title: 'A draggable and resizable event',
-    //   color: colors.yellow,
-    //   actions: this.actions,
-    //   resizable: {
-    //     beforeStart: true,
-    //     afterEnd: true,
-    //   },
-    //   draggable: true,
-    // },
+  events: ExtendedCalendarEvent[] = [
+    { 
+      start: new Date(2021, 4, 13, 10, 0, 0), 
+      end: new Date(2021, 4, 13, 11, 0, 0), 
+      title: "Jóga flow", 
+      location: "Mandala Stúdió" 
+    }
   ];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal, private service : EventService) {
+  constructor(private modal: NgbModal, private service: EventService) {
 
   }
-  
+
   ngOnInit(): void {
-    
+
     this.service.event.subscribe(
       (data) => {
         this.addEvent(data);
         this.modal.dismissAll()
       },
       (err) => console.error(err)
-      )
-      
+    )
+
   }
 
   ngOnDestroy() {
@@ -169,10 +139,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
   hourSegmentClicked(date: Date) {
     this.selectedHourDate = date;
     this.modal.open(this.modalContent, { size: 'lg' });
-    //ezt majd a modal gombja hívja meg 
-    //this.addEvent(this.selectedHourDate)
   }
-  
+
 
   eventTimesChanged({
     event,
@@ -197,7 +165,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(newEvent:CalendarEvent): void {
+  addEvent(newEvent: CalendarEvent): void {
+    console.log(newEvent);
     this.events = [
       ...this.events,
       newEvent

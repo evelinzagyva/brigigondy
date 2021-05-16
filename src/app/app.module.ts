@@ -21,6 +21,7 @@ import { InstaFeedComponent } from './components/insta-feed/insta-feed.component
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { EventFormComponent } from './components/event-form/event-form.component';
+import { EventModule } from './model/event/event.module';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { EventFormComponent } from './components/event-form/event-form.component
     FormsModule,
     NgbModule,
     NgbModalModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EventModule  
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent } from 'calendar-utils';
+import { ExtendedCalendarEvent } from 'src/app/model/event/event.module';
 import { EventService } from 'src/app/services/event.service';
 
 
@@ -55,7 +55,7 @@ export class EventFormComponent implements OnInit {
       )
     )
 
-    let event: CalendarEvent = {
+    let event: ExtendedCalendarEvent = {
       start: startDate,
       end: endDate,
       title: rawEvent.title,
@@ -79,5 +79,6 @@ export class EventFormComponent implements OnInit {
   closeModal() {
     this.modal.dismissAll()
   }
+
 
 }
