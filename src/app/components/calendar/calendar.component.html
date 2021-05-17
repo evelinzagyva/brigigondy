@@ -40,8 +40,6 @@
       [viewDate]="viewDate"
       [events]="events"
       [refresh]="refresh"
-      (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)"
       (hourSegmentClicked)="hourSegmentClicked($event.date)"
       [eventTemplate]="eventTemplate"
       >
@@ -77,7 +75,11 @@
  <!--   </table> 
   </div> -->
   
-  <ng-template #modalContent let-close="close">
+  <ng-template 
+    #modalContent 
+    let-close="close"
+    
+    >
     <div class="modal-header">
       <h5 class="modal-title">Add meg az esemény paramétereit</h5>
       <button type="button" class="close" (click)="close()">
@@ -92,9 +94,16 @@
     </div> 
   </ng-template> 
 
-  <ng-template #eventTemplate let-weekEvent="weekEvent" let-locale="locale">
-    {{weekEvent.event.title}}
-    {{weekEvent.event.location}}
+  <ng-template 
+    #eventTemplate 
+    let-weekEvent="weekEvent" 
+    let-locale="locale"
+    >
+    <div class="event-template" (mwlClick)="handleEvent(weekEvent.event)">
+      {{weekEvent.event.title}}
+      <br>
+      {{weekEvent.event.location}}
+    </div>
 </ng-template>
 
 </section>

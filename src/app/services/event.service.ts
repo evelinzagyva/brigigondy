@@ -7,7 +7,9 @@ import { Observable, Subject } from 'rxjs';
 })
 export class EventService {
 
-  event = new Subject<any>();
+  newEvent = new Subject<any>();
+
+  currentEvent = new Subject<any>();
 
   constructor() { }
 }
