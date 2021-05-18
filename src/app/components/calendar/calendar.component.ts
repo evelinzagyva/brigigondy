@@ -4,28 +4,13 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
-  Output,
-  EventEmitter,
   OnDestroy
 } from '@angular/core';
 
 import {
   CalendarEvent,
   CalendarView,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent
 } from 'angular-calendar';
-
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours
-} from 'date-fns';
 
 import { Subject } from 'rxjs';
 
@@ -39,21 +24,6 @@ import { ExtendedCalendarEvent } from 'src/app/model/event/event.module';
 
 registerLocaleData(localeHu);
 
-// const colors: any = {
-//   red: {
-//     primary: '#ad2121',
-//     secondary: '#FAE3E3',
-//   },
-//   blue: {
-//     primary: '#1e90ff',
-//     secondary: '#D1E8FF',
-//   },
-//   yellow: {
-//     primary: '#e3bc08',
-//     secondary: '#FDF1BA',
-//   },
-// };
-
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -65,6 +35,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   selectedHourDate: Date;
+
+  selectedEvent: ExtendedCalendarEvent;
 
   view: CalendarView = CalendarView.Week;
 
@@ -84,24 +56,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   dayEndHour: number = 19;
 
   ONE_HOUR: number = 60 * 60 * 1000;
-
-  // actions: CalendarEventAction[] = [
-  //   {
-  //     label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-  //     a11yLabel: 'Edit',
-  //     onClick: ({ event }: { event: CalendarEvent }): void => {
-  //       this.handleEvent('Edited', event);
-  //     },
-  //   },
-  //   {
-  //     label: '<i class="fas fa-fw fa-trash-alt"></i>',
-  //     a11yLabel: 'Delete',
-  //     onClick: ({ event }: { event: CalendarEvent }): void => {
-  //       this.events = this.events.filter((iEvent) => iEvent !== event);
-  //       this.handleEvent('Deleted', event);
-  //     },
-  //   },
-  // ];
 
   refresh: Subject<any> = new Subject();
 
@@ -141,29 +95,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-
-  // eventTimesChanged({
-  //   event,
-  //   newStart,
-  //   newEnd,
-  // }: CalendarEventTimesChangedEvent): void {
-  //   this.events = this.events.map((iEvent) => {
-  //     if (iEvent === event) {
-  //       return {
-  //         ...event,
-  //         start: newStart,
-  //         end: newEnd,
-  //       };
-  //     }
-  //     return iEvent;
-  //   });
-  //   this.handleEvent(event);
-  // }
-
   handleEvent(event:ExtendedCalendarEvent): void {
-    
-    //this.modalData = { event, action };
-    this.sendEventToForm(event);
+    this.selectedHourDate = event.start;
+    this.selectedEvent = event;
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
@@ -182,11 +116,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
-  }
-
-  sendEventToForm (event:ExtendedCalendarEvent) {
-    this.selectedHourDate = event.start;
-    this.service.currentEvent.next(event)
   }
 
 }

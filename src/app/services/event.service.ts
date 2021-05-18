@@ -9,7 +9,5 @@ export class EventService {
 
   newEvent = new Subject<any>();
 
-  currentEvent = new Subject<any>();
-
   constructor() { }
 }
