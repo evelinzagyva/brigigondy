@@ -36,7 +36,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   selectedHourDate: Date;
 
-  // selectedEvent: ExtendedCalendarEvent;
+  selectedEvent: ExtendedCalendarEvent;
 
   view: CalendarView = CalendarView.Week;
 
@@ -60,11 +60,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
   refresh: Subject<any> = new Subject();
 
   events: ExtendedCalendarEvent[] = [
-    { 
-      start: new Date(2021, 4, 30, 10, 0, 0), 
-      end: new Date(2021, 4, 30, 15, 0, 0), 
-      title: "Jóga flow", 
-      location: "Mandala Stúdió" 
+    {
+      start: new Date(2021, 4, 30, 10, 0, 0),
+      end: new Date(2021, 4, 30, 15, 0, 0),
+      title: "Jóga flow",
+      location: "Mandala Stúdió"
     }
   ];
 
@@ -76,19 +76,24 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.service.newEvent.subscribe(
+    this.service.event$.subscribe(
       (data) => {
-        this.addEvent(data);
-        console.log('new event added')
-        this.modal.dismissAll()
+        if (this.selectedEvent) {
+          let selectedEventIndex = this.events.findIndex(event => event === this.selectedEvent);
+          this.selectedEvent = null;
+          this.events[selectedEventIndex] = data;
+          this.refresh.next();
+        } else {
+          this.addEvent(data);
+        }
+
       },
       (err) => console.error(err)
-    )
-
+    );
   }
 
   ngOnDestroy() {
-    this.service.newEvent.unsubscribe()
+    this.service.event$.unsubscribe()
   }
 
   hourSegmentClicked(date: Date) {
@@ -96,16 +101,14 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  handleEvent(event:ExtendedCalendarEvent): void {
+  handleEvent(event: ExtendedCalendarEvent): void {
     this.selectedHourDate = event.start;
-    this.service.selectedEvent.next(event);
-    console.log(this.service.selectedEvent)
+    this.selectedEvent = event;
+    this.service.selectedEvent$.next(event);
     this.modal.open(this.modalContent, { size: 'lg' });
-    // this.selectedEvent = event;
   }
 
   addEvent(newEvent: ExtendedCalendarEvent): void {
-    console.log(newEvent);
     this.events = [
       ...this.events,
       newEvent

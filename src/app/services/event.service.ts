@@ -7,9 +7,9 @@ import { ExtendedCalendarEvent } from 'src/app/model/event/event.module';
 })
 export class EventService {
 
-  newEvent = new Subject<any>();
+  event$ = new Subject<any>();
 
-  selectedEvent  = new BehaviorSubject<any>(event)
+  selectedEvent$  = new BehaviorSubject<any>(event);
 
   constructor() { }
 }

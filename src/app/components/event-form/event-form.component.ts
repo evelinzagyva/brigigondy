@@ -39,8 +39,6 @@ export class EventFormComponent implements OnInit, OnDestroy {
 
   location: FormControl;
 
-  macska: string = 'macska';
-
   constructor(private service: EventService, private modal: NgbModal) {
 
   }
@@ -58,7 +56,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.eventSubject.unsubscribe();
-    this.service.selectedEvent.next(new Object());
+    this.service.selectedEvent$.next(new Object());
   }
 
   createForm() {
@@ -112,34 +110,35 @@ export class EventFormComponent implements OnInit, OnDestroy {
   getMinutes(timeStamp: string) {
     return parseInt(timeStamp.split(":")[1]);
   }
-
-  sendEventToCalendar() {
-    this.service.newEvent.next(this.convertEvent(this.eventForm.value))
-  }
-
+  
   getEventFromCalendar() {
-    this.eventSubject = this.service.selectedEvent.subscribe(
+    this.eventSubject = this.service.selectedEvent$.subscribe(
       event => {
         this.setFormControlsValue(event);
       }
-    )
-  }
-
-  setFormControlsValue(event) {
-    if (event) {
-      this.title.patchValue(event.title);
-      this.endingDate = event.end;
-      if (this.endingDate) {
-        this.endingHour = this.addZero(this.endingDate.getHours());
-        this.endingMinute = this.addZero(this.endingDate.getMinutes());
-        this.endingTime.patchValue(this.endingHour + ":" + this.endingMinute);
+      )
+    }
+    
+    setFormControlsValue(event) {
+      if (event) {
+        this.title.patchValue(event.title);
+        this.endingDate = event.end;
+        if (this.endingDate) {
+          this.endingHour = this.addZero(this.endingDate.getHours());
+          this.endingMinute = this.addZero(this.endingDate.getMinutes());
+          this.endingTime.patchValue(this.endingHour + ":" + this.endingMinute);
+        }
+        this.location.patchValue(event.location);
       }
-      this.location.patchValue(event.location);
+      
+    }
+    
+    sendEventToCalendar() {
+        this.service.event$.next(this.convertEvent(this.eventForm.value))
+        this.modal.dismissAll();
     }
 
-  }
-
-  closeModal() {
+    closeModal() {
     this.eventForm.reset();
     this.modal.dismissAll()
 
