@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CalendarEvent } from 'calendar-utils';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { ExtendedCalendarEvent } from 'src/app/model/event/event.module';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,8 @@ import { Observable, Subject } from 'rxjs';
 export class EventService {
 
   newEvent = new Subject<any>();
+
+  selectedEvent  = new BehaviorSubject<any>(event)
 
   constructor() { }
 }

@@ -28,7 +28,7 @@ registerLocaleData(localeHu);
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarComponent implements OnInit, OnDestroy {
 
@@ -36,7 +36,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   selectedHourDate: Date;
 
-  selectedEvent: ExtendedCalendarEvent;
+  // selectedEvent: ExtendedCalendarEvent;
 
   view: CalendarView = CalendarView.Week;
 
@@ -61,8 +61,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   events: ExtendedCalendarEvent[] = [
     { 
-      start: new Date(2021, 4, 23, 10, 0, 0), 
-      end: new Date(2021, 4, 23, 15, 0, 0), 
+      start: new Date(2021, 4, 30, 10, 0, 0), 
+      end: new Date(2021, 4, 30, 15, 0, 0), 
       title: "Jóga flow", 
       location: "Mandala Stúdió" 
     }
@@ -79,6 +79,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.service.newEvent.subscribe(
       (data) => {
         this.addEvent(data);
+        console.log('new event added')
         this.modal.dismissAll()
       },
       (err) => console.error(err)
@@ -97,8 +98,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   handleEvent(event:ExtendedCalendarEvent): void {
     this.selectedHourDate = event.start;
-    this.selectedEvent = event;
+    this.service.selectedEvent.next(event);
+    console.log(this.service.selectedEvent)
     this.modal.open(this.modalContent, { size: 'lg' });
+    // this.selectedEvent = event;
   }
 
   addEvent(newEvent: ExtendedCalendarEvent): void {
