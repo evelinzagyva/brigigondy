@@ -1,38 +1,50 @@
-   <form [formGroup]="eventForm" class="event-form" >
-       <mat-grid-list cols="2" rowHeight="75px" gutterSize="1rem">
-        <mat-grid-tile rowspan="1" colspan="2">
-            <mat-form-field appearance="outline">
-                <mat-label>Megnevezés</mat-label>
-                <input matInput formControlName="title">
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="1" colspan="1">
+<div class="modal-header">
+    <h5 class="modal-title">Add meg az esemény paramétereit</h5>
+    <button type="button" class="close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="eventForm" class="event-form">
+        <mat-grid-list cols="2" rowHeight="75px" gutterSize="1rem">
+            <mat-grid-tile rowspan="1" colspan="2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Megnevezés</mat-label>
+                    <input matInput formControlName="title">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="1" colspan="1">
                 <mat-form-field appearance="outline">
                     <mat-label>Kezdés</mat-label>
                     <input matInput type="time" formControlName="startingTime">
                 </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="1" colspan="1"> 
-            <mat-form-field appearance="outline">
-                <mat-label>Befejezés</mat-label>
-                <input matInput type="time" formControlName="endingTime">
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="1" colspan="2">
-            <mat-form-field appearance="outline">
-                <mat-label>Helyszín</mat-label>
-                <input matInput formControlName="location">
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="1" colspan="1">
-            <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">
-                Vissza
-           </button>
-        </mat-grid-tile>
-        <mat-grid-tile rowspan="1" colspan="1">
-            <button [disabled]="eventForm.invalid" type="button" class="btn btn-outline-secondary" (click)="sendEventToCalendar()">
-                Létrehoz
-           </button>
-        </mat-grid-tile>
-       </mat-grid-list>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="1" colspan="1">
+                <mat-form-field appearance="outline">
+                    <mat-label>Befejezés</mat-label>
+                    <input matInput type="time" formControlName="endingTime">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="1" colspan="2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Helyszín</mat-label>
+                    <input matInput formControlName="location">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="1" colspan="1">
+                <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">
+                    Vissza
+                </button>
+            </mat-grid-tile>
+            <mat-grid-tile rowspan="1" colspan="1">
+                <button [disabled]="eventForm.invalid" type="button" class="btn btn-outline-secondary"
+                    (click)="sendEventToCalendar()">
+                    Létrehoz
+                </button>
+            </mat-grid-tile>
+        </mat-grid-list>
     </form>
+</div>
+<div class="modal-footer">
+
+</div>

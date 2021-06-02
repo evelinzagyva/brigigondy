@@ -61,8 +61,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   events: ExtendedCalendarEvent[] = [
     {
-      start: new Date(2021, 4, 30, 10, 0, 0),
-      end: new Date(2021, 4, 30, 15, 0, 0),
+      start: new Date(2021, 5, 6, 10, 0, 0),
+      end: new Date(2021, 5, 6, 15, 0, 0),
       title: "Jóga flow",
       location: "Mandala Stúdió"
     }
