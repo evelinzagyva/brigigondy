@@ -76,7 +76,7 @@
   </div> -->
   
   <ng-template #modalContent>
-      <app-event-form [startingDate]="selectedHourDate"></app-event-form>
+      <app-event-form [startingDate]="selectedHourDate" (eventToDelete)="deleteEvent()"></app-event-form>
   </ng-template> 
 
   <ng-template 

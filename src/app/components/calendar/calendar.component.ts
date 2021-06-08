@@ -46,7 +46,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   modalData: {
     action: string;
-    event: CalendarEvent;
+    event: ExtendedCalendarEvent;
   };
 
   locale: string = 'hu';
@@ -61,9 +61,15 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   events: ExtendedCalendarEvent[] = [
     {
-      start: new Date(2021, 5, 6, 10, 0, 0),
-      end: new Date(2021, 5, 6, 15, 0, 0),
+      start: new Date(2021, 5, 13, 10, 0, 0),
+      end: new Date(2021, 5, 13, 15, 0, 0),
       title: "Jóga flow",
+      location: "Mandala Stúdió"
+    },
+    {
+      start: new Date(2021, 5, 12, 10, 0, 0),
+      end: new Date(2021, 5, 12, 12, 0, 0),
+      title: "Jóga gerinc",
       location: "Mandala Stúdió"
     }
   ];
@@ -79,12 +85,16 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.service.event$.subscribe(
       (data) => {
         if (this.selectedEvent) {
+          console.log('selected event has value')
+          console.log(data)
           let selectedEventIndex = this.events.findIndex(event => event === this.selectedEvent);
           this.selectedEvent = null;
           this.events[selectedEventIndex] = data;
           this.refresh.next();
         } else {
-          this.addEvent(data);
+          console.log('selected event has no value')
+          console.log(data)
+         this.addEvent(data);
         }
 
       },
@@ -106,6 +116,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.selectedEvent = event;
     this.service.selectedEvent$.next(event);
     this.modal.open(this.modalContent, { size: 'lg' });
+    
   }
 
   addEvent(newEvent: ExtendedCalendarEvent): void {
@@ -116,8 +127,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
     ];
   }
 
-  deleteEvent(eventToDelete: ExtendedCalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+  deleteEvent() {
+    this.events = this.events.filter( event => event !== this.selectedEvent)
+    this.selectedEvent = null;
+    this.refresh.next();
   }
 
   closeOpenMonthViewDay() {

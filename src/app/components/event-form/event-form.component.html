@@ -31,20 +31,21 @@
                     <input matInput formControlName="location">
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile rowspan="1" colspan="1">
-                <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">
-                    Vissza
-                </button>
-            </mat-grid-tile>
-            <mat-grid-tile rowspan="1" colspan="1">
-                <button [disabled]="eventForm.invalid" type="button" class="btn btn-outline-secondary"
-                    (click)="sendEventToCalendar()">
-                    Létrehoz
-                </button>
-            </mat-grid-tile>
         </mat-grid-list>
     </form>
 </div>
 <div class="modal-footer">
-
+    <mat-grid-list cols="2" rowHeight="75px" gutterSize="1rem">
+        <mat-grid-tile rowspan="1" colspan="1">
+            <button [disabled]="!endingDate" type="button" class="btn btn-outline-danger" (click)="deleteEvent()">
+                Törlés
+            </button>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="1" colspan="1">
+            <button [disabled]="eventForm.invalid" type="button" class="btn btn-outline-secondary"
+                (click)="sendEventToCalendar()">
+                Létrehozás
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
 </div>

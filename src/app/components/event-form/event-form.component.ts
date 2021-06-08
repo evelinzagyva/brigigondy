@@ -39,12 +39,13 @@ export class EventFormComponent implements OnInit, OnDestroy {
 
   location: FormControl;
 
+  @Output() eventToDelete = new EventEmitter<ExtendedCalendarEvent>();
+
   constructor(private service: EventService, private modal: NgbModal) {
 
   }
 
   ngOnInit(): void {
-
 
     this.startingHour = this.addZero(this.startingDate.getHours());
     this.startingMinute = this.addZero(this.startingDate.getMinutes());
@@ -89,9 +90,8 @@ export class EventFormComponent implements OnInit, OnDestroy {
     )
     let endDate = new Date(
       this.startingDate.setHours(
-        this.getHours(rawEvent.endingTime),
-        this.getMinutes(rawEvent.endingTime)
-      )
+      this.getHours(rawEvent.endingTime),
+      this.getMinutes(rawEvent.endingTime))
     )
 
     let event: ExtendedCalendarEvent = {
@@ -110,38 +110,42 @@ export class EventFormComponent implements OnInit, OnDestroy {
   getMinutes(timeStamp: string) {
     return parseInt(timeStamp.split(":")[1]);
   }
-  
+
   getEventFromCalendar() {
     this.eventSubject = this.service.selectedEvent$.subscribe(
       event => {
         this.setFormControlsValue(event);
       }
-      )
-    }
-    
-    setFormControlsValue(event) {
-      if (event) {
-        this.title.patchValue(event.title);
-        this.endingDate = event.end;
-        if (this.endingDate) {
-          this.endingHour = this.addZero(this.endingDate.getHours());
-          this.endingMinute = this.addZero(this.endingDate.getMinutes());
-          this.endingTime.patchValue(this.endingHour + ":" + this.endingMinute);
-        }
-        this.location.patchValue(event.location);
+    )
+  }
+
+  setFormControlsValue(event) {
+    if (event) {
+      this.title.patchValue(event.title);
+      this.endingDate = event.end;
+      if (this.endingDate) {
+        this.endingHour = this.addZero(this.endingDate.getHours());
+        this.endingMinute = this.addZero(this.endingDate.getMinutes());
+        this.endingTime.patchValue(this.endingHour + ":" + this.endingMinute);
       }
-      
-    }
-    
-    sendEventToCalendar() {
-        this.service.event$.next(this.convertEvent(this.eventForm.value))
-        this.modal.dismissAll();
+      this.location.patchValue(event.location);
     }
 
-    closeModal() {
+  }
+
+  sendEventToCalendar() {
+    this.service.event$.next(this.convertEvent(this.eventForm.value))
+    this.modal.dismissAll();
+  }
+
+  deleteEvent() {
+    this.eventToDelete.emit();
+    this.closeModal()
+  }
+
+  closeModal() {
     this.eventForm.reset();
     this.modal.dismissAll()
-
   }
 
 
