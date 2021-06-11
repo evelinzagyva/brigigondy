@@ -41,6 +41,8 @@ export class EventFormComponent implements OnInit, OnDestroy {
 
   @Output() eventToDelete = new EventEmitter<ExtendedCalendarEvent>();
 
+  @Output() resetValue = new EventEmitter<ExtendedCalendarEvent>();
+
   constructor(private service: EventService, private modal: NgbModal) {
 
   }
@@ -145,7 +147,12 @@ export class EventFormComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.eventForm.reset();
+    this.clearSelectedEventInCalendar()
     this.modal.dismissAll()
+  }
+
+  clearSelectedEventInCalendar() {
+    this.resetValue.emit()
   }
 
 

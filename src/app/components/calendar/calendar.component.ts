@@ -12,7 +12,7 @@ import {
   CalendarView,
 } from 'angular-calendar';
 
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -76,24 +76,22 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   activeDayIsOpen: boolean = true;
 
+  eventSubsription : Subscription;
+
   constructor(private modal: NgbModal, private service: EventService) {
 
   }
 
   ngOnInit(): void {
 
-    this.service.event$.subscribe(
+  this.eventSubsription =  this.service.event$.subscribe(
       (data) => {
         if (this.selectedEvent) {
-          console.log('selected event has value')
-          console.log(data)
           let selectedEventIndex = this.events.findIndex(event => event === this.selectedEvent);
           this.selectedEvent = null;
           this.events[selectedEventIndex] = data;
           this.refresh.next();
         } else {
-          console.log('selected event has no value')
-          console.log(data)
          this.addEvent(data);
         }
 
@@ -103,7 +101,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.service.event$.unsubscribe()
+    this.eventSubsription.unsubscribe()
   }
 
   hourSegmentClicked(date: Date) {
@@ -131,6 +129,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.events = this.events.filter( event => event !== this.selectedEvent)
     this.selectedEvent = null;
     this.refresh.next();
+  }
+
+  setSelectedEventToNull() {
+    this.selectedEvent = null;
   }
 
   closeOpenMonthViewDay() {
