@@ -22,6 +22,9 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { EventFormComponent } from './components/event-form/event-form.component';
 import { EventModule } from './model/event/event.module';
+import { GroupLessonComponent } from './components/group-lesson/group-lesson.component';
+import { PrivateLessonComponent } from './components/private-lesson/private-lesson.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { EventModule } from './model/event/event.module';
     FooterComponent,
     InstaFeedComponent,
     CalendarComponent,
-    EventFormComponent
+    EventFormComponent,
+    GroupLessonComponent,
+    PrivateLessonComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
