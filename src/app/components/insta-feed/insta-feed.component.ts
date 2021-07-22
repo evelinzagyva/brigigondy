@@ -13,6 +13,12 @@ export class InstaFeedComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    
+    //  var feed = new Instafeed({
+    //     accessToken: 'IGQVJVUF8zeHhYMEllcDNSdl9NWTRqWDFoZAUFubUlmUDBrSHlQcmdjZAEVJOWlUS0VSSWFqVVFkM3ljRm9SQlNCalVySTVuaVNQeEFTODhiTkZAwX2lIUHFIeFlrOGVQUml1UFlrc1ZA3bVVCXzdkREFOVwZDZD'
+    //  });
+
+    //  feed.run();
   }
 
   
